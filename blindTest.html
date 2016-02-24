@@ -1,92 +1,63 @@
-<!DOCTYPE html>
-<html>
-
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    
-    <style>
-        body {
-            margin: 0;
-        }
-        
-        #gauche {
-            float: left;
-            width: 70%;
-            height: 1000px;
-            background-color: #EFECCA;
-        }
-        
-        #droite {
-            background-color: #CEFFF8;
-            height: 1000px;
-            padding: 10px;
-            padding-left: 71%;
-        }
-        
-                #toto {
-            background-color: #CEFFF8;
-                    
-            height: 1000px;
-                    width: 500px:
-            padding: 10px;
-            padding-left: 71%;
-        }
-        
-          #draggable { width: 150px; height: 150px; padding: 0.5em;            background-color: #CEFFF8;
- }
-        
-        
-        
-        span,
-        button,
-        input {
-            margin: 10px;
-        }
-    </style>
-    
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-    
-    
-    <script>
-        
-	(function(d, s, id) { 
-	var js, djs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) return; 
-	js = d.createElement(s); js.id = id; 
-	js.src = "https://cdns-files.dzcdn.net/js/widget/loader.js"; 
-	 djs.parentNode.insertBefore(js, djs);
-}(document, "script", "deezer-widget-loader"));
-        
-        $(function() {
+  <meta charset="utf-8">
+  <title>jQuery UI Draggable - Default functionality</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+      
+  #boiboite { 
+      width: 150px;
+      height: 150px;
+      padding: 0.5em;
+      top: 150px;
+      right: 0;
+      }
+      
+      
+      .draggable {
+          
+          
+          border-color: red;
+          border-width: 5px ;
+      }  
+      
+      
+  </style>
+  <script>
+      
+    //  <!-- Code fournis par Deezer -->
+      
+            (function (d, s, id) {
+            var js, djs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://cdns-files.dzcdn.net/js/widget/loader.js";
+            djs.parentNode.insertBefore(js, djs);
+        }(document, "script", "deezer-widget-loader"));
 
-  $('#draggable').draggable();
-
-});
-    
-    
-    
-    </script>
-
-
+    //fin du code fournis par Deezer
+      
+      
+  $(function() {
+    $( ".draggable" ).draggable();
+  });
+  </script>
 </head>
-
 <body>
+ 
     
+<div id="boiboite" class="ui-widget-content draggable">  <!-- Ma Boiboite de test -->
+  <p>Drag me around</p>
+</div>
+ 
     
-    <span class="deezer-widget-player" id="draggable" data-src="https://www.deezer.com/plugins/player?format=classic&autoplay=false&playlist=true&width=700&height=350&color=007FEB&layout=dark&size=medium&type=playlist&id=60933168&app_id=1" data-scrolling="no" data-frameborder="0" data-allowTransparency="true" data-width="700" data-height="350"></span>
+        <div class="deezer-widget-player draggable" data-src="https://www.deezer.com/plugins/player?format=classic&autoplay=false&playlist=true&width=700&height=350&color=007FEB&layout=dark&size=medium&type=playlist&id=60933168&app_id=1" data-scrolling="no" data-frameborder="0" data-allowTransparency="true" data-width="700" data-height="350"></div>
     
-    <div id="draggable" class="ui-widget-content">
-    
-    </div>
-
-    
-    
-    <script>
-
-    </script>
-    
-    
+ 
 </body>
-
 </html>

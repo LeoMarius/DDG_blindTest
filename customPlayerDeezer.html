@@ -4,17 +4,25 @@
 <head>
     <meta charset="utf-8">
 
+    
+    
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="js/percircle.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- JqueryUI CSS -->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="../css/simple-sidebar.css" rel="stylesheet">
-
-
-
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <!-- styles for Percicle demo page -->
+    <link rel="stylesheet" href="css/stylesPercircle.css">
+    <link rel="stylesheet" href="css/percircle.css">
+    
+    <!-- Mes Propres CSS "temporaires" -->
+    
     <style type="text/css">
         .progressbarplay {
             cursor: pointer;
@@ -73,12 +81,16 @@
             border-width: 5px;
         }
     </style>
+
+    <!-- Fin de mes CSS -->
+
+    
 </head>
 
 <body>
 
 
-    <div id="wrapper">
+    <div id="wrapper" class="page">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -154,13 +166,25 @@
             <p>Drag me around</p>
         </div>
 
+
+
+        <h2>Custom text</h2>
+        <!-- custom text -->
+        <div class="clearfix">
+            <div id="pinkcircle" data-text="work" data-percent="65" class="red big"></div>
+            <div id="bluecircle" data-text="rest" data-percent="87" class="purple"></div>
+            <div id="bluecircle" data-text="play" data-percent="30" class="small blue"></div>
+        </div>
+        
+
+
         <!-- /#page-content-wrapper -->
     </div>
+    
     <!-- /#wrapper -->
 
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript" src="http://e-cdn-files.deezer.com/js/min/dz.js"></script>
 
 
@@ -172,10 +196,25 @@
                 console.log(evt.offsetX, $(this).width(), evt.offsetX / $(this).width());
                 DZ.player.seek((evt.offsetX / $(this).width()) * 100);
             });
-        });
 
-        $(function () {
+
+            //rendre draggable certains trucs
             $(".draggable").draggable();
+
+            ///Début des cercles de chargement
+            $("[id$='circle']").percircle();
+            
+            $("#clock").percircle({
+                perclock: true
+            });
+            
+            $("#custom").percircle({
+                text: "custom",
+                percent: 27
+            });
+            //Fin des cercles de chargement
+
+
         });
 
         function event_listener_append() {

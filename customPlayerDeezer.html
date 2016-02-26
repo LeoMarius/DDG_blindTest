@@ -4,25 +4,32 @@
 <head>
     <meta charset="utf-8">
 
-    
-    
+
+
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="js/percircle.js"></script>
-    
+
+
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+    <script type="text/javascript" src="http://e-cdn-files.deezer.com/js/min/dz.js"></script>
+
+    <script src="js/circle-progress.js"></script>
+
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- JqueryUI CSS -->
+
+    <!-- JqueryUI CSS 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <!-- Bootstrap Core CSS -->
+    <!-- Bootstrap Core CSS 
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
+     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
-    <!-- styles for Percicle demo page -->
-    <link rel="stylesheet" href="css/stylesPercircle.css">
-    <link rel="stylesheet" href="css/percircle.css">
-    
+
+
     <!-- Mes Propres CSS "temporaires" -->
-    
+
     <style type="text/css">
         .progressbarplay {
             cursor: pointer;
@@ -68,23 +75,48 @@
             transition: width .6s ease;
         }
         
-        #boiboite {
-            width: 150px;
-            height: 150px;
-            padding: 0.5em;
-            top: 150px;
+        #circle {
+            width: 210px;
+            height: 210px;
+            padding: 0em;
+            top: 0px;
             right: 0;
+        }
+        
+                #player1 {
+            width: 210px;
+            height: 210px;
+            padding: 0em;
+            top: 0px;
+            right: 0;
+        }
+        
+        
+        
+        #boiboite {
+            width: 210px;
+            height: 210px;
+            padding: 0em;
+            top: 0px;
+            right: 0;
+        }
+        
+        #texteLoading {
+            position: relative;
+            top: -115px;
+            text-align: center;
         }
         
         .draggable {
             border-color: red;
             border-width: 5px;
+            backface-visibility: hidden;
         }
     </style>
 
     <!-- Fin de mes CSS -->
 
-    
+
 </head>
 
 <body>
@@ -122,75 +154,100 @@
         </div>
         <!-- /#sidebar-wrapper -->
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Simple Sidebar</h1>
-                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                    </div>
-                </div>
-            </div>
+
+
+        <div class="">
+            <form id="playlistLoader" class="formulaires">
+                Identifiant Deezer de la playlist
+                <input id='playlistNumber' type="text" name="playlistNumber">
+                <input type="checkbox" name="random" id="playlistShuffle">
+                <input id="summitPlaylist" type="button" value="Charger la Playlist"> 1006743821 - 579649831 (d) - 1109890291 - 524654575
+            </form>
         </div>
 
-
-
+        <br/>
+        <br/>
 
 
         <div id="dz-root"></div>
         <div id="controlers" class="draggable">
-            <input type="button" onclick="DZ.player.playPlaylist(60933168); return false;" value="Play Daft Punk - Discovery" />
+
+            <input type="button" id="StartMain" value="Le Gros start !" />
+
+
             <input type="button" onclick="DZ.player.playAlbum(301775); return false;" value="Play Daft Punk - Homework" />
-            <input type="number" />
+
             <br/>
             <input type="button" onclick="DZ.player.play(); return false;" value="play" />
             <input type="button" onclick="DZ.player.pause(); return false;" value="pause" />
             <input type="button" onclick="DZ.player.prev(); return false;" value="prev" />
             <input type="button" onclick="DZ.player.next(); return false;" value="next" />
             <br/>
-            <input type="button" onclick="DZ.player.setVolume(20); return false;" value="set Volume 20" />
-            <input type="button" onclick="DZ.player.setVolume(80); return false;" value="set Volume 80" />
+
+
+            <input type="button" id="buttonDebug1" onclick="console.log(currentPlaylist); return false;" value="debug Printlog currentPlaylist" />
+            <input type="button" id="buttonDebug2" value="debug Info Song/shuffle"/>
+            <input type="button" id="buttonDebug3" value="debug 3" />
+
+
+
             <br/>
             <br/>
             <br/>
         </div>
+
+
         <div id="slider_seek" class="progressbarplay" style="">
             <div class="bar" style="width: 0%;"></div>
         </div>
 
+
+        <div id="circle" class="circle draggable" data-value="0" data-size="200" data-thickness="15" data-animation-start-value="0" data-reverse="false">
+            <div id="texteLoading">Drag me around</div>
+        </div>
+        
+        
+        <div id="player1" class="circle draggable" data-value="0.7" data-size="200" data-thickness="15" data-animation-start-value="0" data-reverse="false">
+            <div id="texteLoading">Le joueur 1 !</div>
+        </div>
+
+
+        <!-- Ma Boiboite de test -->
         <div id="boiboite" class="ui-widget-content draggable">
-            <!-- Ma Boiboite de test -->
             <p>Drag me around</p>
         </div>
 
 
 
-        <h2>Custom text</h2>
-        <!-- custom text -->
-        <div class="clearfix">
-            <div id="pinkcircle" data-text="work" data-percent="65" class="red big"></div>
-            <div id="bluecircle" data-text="rest" data-percent="87" class="purple"></div>
-            <div id="bluecircle" data-text="play" data-percent="30" class="small blue"></div>
-        </div>
-        
+
+
+
+
+
 
 
         <!-- /#page-content-wrapper -->
     </div>
-    
+
     <!-- /#wrapper -->
 
 
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script type="text/javascript" src="http://e-cdn-files.deezer.com/js/min/dz.js"></script>
+
+
 
 
     <script>
+        /////  DEBUT DE LA BOUCLE PRINCIPALE JQuery  /////
+
+        var currentPlaylist = 579649831;
+
+
         $(document).ready(function () {
+
             $("#controlers input").attr('disabled', true);
+
+
+            /// Le clic sur la barre horizontale
             $("#slider_seek").click(function (evt, arg) {
                 var left = evt.offsetX;
                 console.log(evt.offsetX, $(this).width(), evt.offsetX / $(this).width());
@@ -201,21 +258,110 @@
             //rendre draggable certains trucs
             $(".draggable").draggable();
 
-            ///Début des cercles de chargement
-            $("[id$='circle']").percircle();
-            
-            $("#clock").percircle({
-                perclock: true
+
+
+
+            //// INITIALISATION DU CERCLE DE CHARGEMENT
+            $('#circle').circleProgress({
+                fill: {
+                    gradient: ["red", "orange"]
+                },
+                animation: {
+                    duration: 200
+                },
+                lineCap: "round" /// les bouts arrondis :)
             });
             
-            $("#custom").percircle({
-                text: "custom",
-                percent: 27
+            $('#player1').circleProgress({
+                fill: {
+                    gradient: ["green", "blue"]
+                },
+                animation: {
+                    duration: 1200
+                },
+                lineCap: "round" /// les bouts arrondis :)
             });
             //Fin des cercles de chargement
 
 
+            $('#summitPlaylist').click(
+                function () {
+
+                    currentPlaylist = $('#playlistNumber').val(); //On charge la playlist
+                    ///// FAIRE DES VERIFS COMME QUOI C'EST BIEN UNE PLAYLIST ///////
+
+                    DZ.player.playPlaylist(currentPlaylist, false);
+
+                    var shuffleState = $('#playlistShuffle').val();
+                    console.log("là je clique");
+                    DZ.player.setShuffle(0);
+
+                    if ($('#playlistShuffle').is(":checked")) {
+                        DZ.player.setShuffle(1);
+                        console.log("c'est coché");
+                    } else {
+                        DZ.player.setShuffle(0);
+                        console.log("c'est pas coché");
+
+                    }
+
+
+                    return false;
+
+
+                });
+
+
+
+
+
+            $('#StartMain').click(
+                function () {
+                    console.log("playlist actuelle : " + currentPlaylist);
+
+                    var plalistACharger = parseInt(currentPlaylist);
+
+                    DZ.player.playPlaylist(plalistACharger);
+
+                    console.log(DZ.player.playPlaylist(currentPlaylist));
+                    return false;
+                });
+
+            $('#buttonDebug2').click(
+                function () {
+
+                    var currentTrack = DZ.player.getCurrentTrack();
+                    
+                                        var titou2 = DZ.player.getCurrentIndex();
+                    
+
+                    
+                    var titou = ("ID : "+titou2+" , Titre : " + currentTrack.title + " ,  Artiste : " + currentTrack.artist.name + " , Shuffle :  " + (DZ.player.getShuffle())
+ );
+                    
+                    
+                    console.log(titou);
+                    return false;
+                });
+
+            $('#buttonDebug3').click(
+                function () {
+                    DZ.player.setShuffle(1);
+                    console.log("setShuffle")
+                    return false;
+                });
+
+
+
+
+
+
+
         });
+
+        /////  FIN DE LA BOUCLE PRINCIPALE JQuery  /////
+
+
 
         function event_listener_append() {
             var pre = document.getElementById('event_listener');
@@ -232,15 +378,34 @@
             DZ.Event.subscribe('current_track', function (arg) {
                 event_listener_append('current_track', arg.index, arg.track.title, arg.track.album.title);
             });
+
+
+            /// Mise à jours de l'avancement des barres de progression
             DZ.Event.subscribe('player_position', function (arg) {
-                event_listener_append('position', arg[0], arg[1]);
+                //   event_listener_append('position', arg[0], arg[1]);
+
+                ////Barre basique
                 $("#slider_seek").find('.bar').css('width', (100 * arg[0] / arg[1]) + '%');
+
+                ///Barre circulaire
+                $('#circle').circleProgress('value', (arg[0] / arg[1]));
+
+                var secondes = parseInt(arg[0]);
+                $('#texteLoading').text(secondes);
+
+
             });
+
+
+
+
+
 
             DZ.Event.subscribe('track_end', function () {
                 event_listener_append('track_end');
             });
         }
+
         DZ.init({
             appId: '8',
             channelUrl: 'http://developers.deezer.com/examples/channel.php',
@@ -248,6 +413,7 @@
                 onload: onPlayerLoaded
             }
         });
+        
     </script>
     <br/> event_listener :
     <br/>

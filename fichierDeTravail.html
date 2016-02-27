@@ -168,20 +168,17 @@
 
 
 
-    <div id="circle" class="circle draggable" data-value="0" data-size="200" data-thickness="15" data-animation-start-value="0" data-reverse="false">
+    <div id="circle" class="circle draggable" data-value="0" data-size="300" data-thickness="15" data-animation-start-value="0" data-reverse="false">
         <div id="texteLoading">Drag me around</div>
     </div>
 
 
-    <div id="player1" class="circle draggable playerCircle" data-value="0.7" data-size="200" data-thickness="15" data-animation-start-value="0" data-reverse="false">
+    <div id="player1" class="circle draggable playerCircle" data-value="0.1" data-size="100" data-thickness="10" data-animation-start-value="0" data-reverse="false">
         <div id="texteLoading">Le joueur 1 !</div>
     </div>
 
 
-    <!-- Ma Boiboite de test -->
-    <div id="boiboite" class="ui-widget-content draggable">
-        <p>Drag me around</p>
-    </div>
+    
 
 
 
@@ -195,6 +192,11 @@
     <script type="text/javascript" src="http://e-cdn-files.deezer.com/js/min/dz.js"></script>
 
     <script type="text/javascript" src="js/circle-progress.js"></script>
+    
+    
+    <script type="text/javascript" src="js/boutons.js"></script>
+    <script type="text/javascript" src="js/clavier.js"></script>
+
 
     <!-- Et là je fait ma bricole -->
     <script>
@@ -249,7 +251,7 @@
                     gradient: ["red", "orange"]
                 },
                 animation: {
-                    duration: 200
+                    duration: 0
                 },
                 lineCap: "round" /// les bouts arrondis :)
             });
@@ -266,109 +268,18 @@
             //Fin des cercles de chargement
 
 
-            $('#summitPlaylist').click(
-                function () {
-
-                    currentPlaylist = $('#playlistNumber').val(); //On charge la playlist
-                    ///// FAIRE DES VERIFS COMME QUOI C'EST BIEN UNE PLAYLIST ///////
-
-                    DZ.player.playPlaylist(currentPlaylist, false);
-
-                    var shuffleState = $('#playlistShuffle').val();
-                    console.log("là je clique");
-                    DZ.player.setShuffle(0);
-
-                    if ($('#playlistShuffle').is(":checked")) {
-                        DZ.player.setShuffle(1);
-                        console.log("c'est coché");
-                    } else {
-                        DZ.player.setShuffle(0);
-                        console.log("c'est pas coché");
-                    }
-                    return false;
-                });
 
 
             var playlistGlobale = 0;
 
-
-
-
-
-            ///////////// LES BOUTONS //////////////////
-
-
-            $('#StartMain').click(
-                function () {
-                    console.log("playlist actuelle : " + currentPlaylist);
-                    var plalistACharger = parseInt(currentPlaylist);
-                    DZ.player.playPlaylist(plalistACharger);
-                    console.log(DZ.player.playPlaylist(currentPlaylist));
-                    return false;
-                });
-
-
-            $('#buttonDebug1').click(
-                function () {
-
-                    DZ.player.playTracks[(67929419)];
-
-                    return false;
-                });
-
-            $('#buttonDebug2').click(
-                function () {
-
-                    var currentTrack = DZ.player.getCurrentTrack();
-
-                    var titou2 = DZ.player.getCurrentIndex();
-
-                    var titou = ("ID : " + currentTrack.id + " , Position playlist : " + titou2 + " , Titre : " + currentTrack.title + " ,  Artiste : " + currentTrack.artist.name + " , Shuffle :  " + (DZ.player.getShuffle()));
-
-                    console.log(titou);
-                    /// Affiche les infos de la piste chargée dans le lecteur.
-                    return false;
-                });
-
-            $('#buttonDebug3').click(
-                function () {
-
-                    pisteMusicale.init(67929419);
-                    console.log("toto");
-                    console.log(pisteMusicale.title);
-                    return false;
-                });
-
-
-
-            ////////////////////////// LE CLAVIER   //////////////
-
-
-            $('body').keypress(function (e) {
-                if (e.which == 32) {
-                    var playerPlaying = DZ.player.isPlaying();
-                    if (playerPlaying == true) {
-                        DZ.player.pause();
-                    } else {
-                        DZ.player.play();
-                    };
-                    console.log('Yay');
-                    return false;
-                } else {
-
-                    console.log(e.which);
-                }
-            });
-
-
-
-
-
-
-
-            ///////////////////////// FIN DE LE CLAVER  //////////////
+            
+            
+            
 
         });
+        
+        
+        
 
         /////  FIN DE LA BOUCLE PRINCIPALE JQuery  /////
 
@@ -391,6 +302,8 @@
             });
 
 
+            
+            
             /// Mise à jours de l'avancement des barres de progression
             DZ.Event.subscribe('player_position', function (arg) {
                 //   event_listener_append('position', arg[0], arg[1]);

@@ -17,95 +17,10 @@
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
     <!-- Mes Propres CSS "temporaires" -->
+    <link rel="stylesheet" href="css/blindTest.css">
 
     <style type="text/css">
-        /* La barre de chargement deezer */
-        
-        .progressbarplay {
-            cursor: pointer;
-            overflow: hidden;
-            height: 8px;
-            margin-bottom: 8px;
-            background-color: #F7F7F7;
-            /*
-            background-image: -moz-linear-gradient(top, whiteSmoke, #F9F9F9);
-            background-image: -ms-linear-gradient(top, whiteSmoke, #F9F9F9);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(whiteSmoke), to(#F9F9F9));
-            background-image: -webkit-linear-gradient(top, whiteSmoke, #F9F9F9);
-            background-image: -o-linear-gradient(top, whiteSmoke, #F9F9F9);
-            background-image: linear-gradient(top, whiteSmoke, #F9F9F9);
-            
-            background-repeat: repeat-x;
-            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#f9f9f9', GradientType=0);
-            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-            -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-            -webkit-border-radius: 6px;
-            -moz-border-radius: 6px;
-            */
-            border-radius: 6px;
-        }
-        /* La barre de chargement deezer 2 */
-        
-        .progressbarplay .bar {
-            cursor: pointer;
-            background: #4496C6;
-            width: 0;
-            height: 8px;
-            color: white;
-            font-size: 12px;
-            text-align: center;
-            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-            -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-            -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            -webkit-transition: width .6s ease;
-            -moz-transition: width .6s ease;
-            -ms-transition: width .6s ease;
-            -o-transition: width .6s ease;
-            transition: width .6s ease;
-        }
-        /* Le cercle de chargement principal */
-        
-        #circle {
-            width: 210px;
-            height: 210px;
-            padding: 0em;
-            top: 0px;
-            right: 0;
-        }
-        /* Le cercle de progression d'un joueur */
-        
-        .playerCircle {
-            width: 210px;
-            height: 210px;
-            padding: 0em;
-            top: 0px;
-            right: 0;
-        }
-        
-        #boiboite {
-            width: 210px;
-            height: 210px;
-            padding: 0em;
-            top: 0px;
-            right: 0;
-        }
-        
-        #texteLoading {
-            position: relative;
-            top: -115px;
-            text-align: center;
-        }
-        
-        .draggable {
-            border-color: red;
-            border-width: 5px;
-            backface-visibility: hidden;
-        }
+
     </style>
 
     <!-- Fin de mes CSS -->
@@ -115,9 +30,13 @@
 
 <body>
 
+    <!-- ce bloc caché qui lit la musique deezer -->
+    <div id="dz-root"></div>
+    <br>
 
 
 
+    <!-- Boutons de chargement de playlist -->
     <div class="">
         <form id="playlistLoader" class="formulaires">
             Identifiant Deezer de la playlist
@@ -127,33 +46,38 @@
         </form>
     </div>
 
+    <!-- Boutons de creation de joueurs -->
+    <div>
+        <form id="playerCreator" class="formulaires">
+            Nom du personnage
+            <input id='playerName' type="text" name="playerName">
+            <input id="summitPlayer" type="button" value="Créer un nouveau joueur">
+        </form>
+    </div>
+
+
+
     <br/>
     <br/>
 
 
-    <div id="dz-root"></div>
+
+
+
+    <!-- Le bloc de contrôle avec les boutons -->
     <div id="controlers" class="draggable">
 
         <input type="button" id="StartMain" value="Le Gros start !" />
-
-
         <input type="button" onclick="DZ.player.playAlbum(301775); return false;" value="Play Daft Punk - Homework" />
-
         <br/>
         <input type="button" onclick="DZ.player.play(); return false;" value="play" />
         <input type="button" onclick="DZ.player.pause(); return false;" value="pause" />
         <input type="button" onclick="DZ.player.prev(); return false;" value="prev" />
         <input type="button" onclick="DZ.player.next(); return false;" value="next" />
         <br/>
-
-
         <input type="button" id="buttonDebug1" value="debug 1" />
         <input type="button" id="buttonDebug2" value="debug 2" />
         <input type="button" id="buttonDebug3" value="debug 3" />
-
-
-
-
 
         <br/>
         <br/>
@@ -162,23 +86,102 @@
 
     <!-- Là je commente -->
 
+
+
+
+
+    <!-- Cercle de lecture principal -->
+    <div id="circle" class="circle draggable" data-value="0" data-size="300" data-thickness="15" data-animation-start-value="0" data-reverse="false">
+        <div id="texteLoading">Drag me around</div>
+    </div>
+
+    <br/>
+
+    <!-- Barre de progression Deezer -->
     <div id="slider_seek" class="progressbarplay" style="">
         <div class="bar" style="width: 0%;"></div>
     </div>
 
 
 
-    <div id="circle" class="circle draggable" data-value="0" data-size="300" data-thickness="15" data-animation-start-value="0" data-reverse="false">
-        <div id="texteLoading">Drag me around</div>
+
+    <!-- Joueur temporaire, test de structure -->
+    <div id="player2" class="player draggable">
+
+        <button type="button" id="player1Kill" class="close" data-dismiss="modal">x</button>
+
+        <div id="circlePlayer2" class="circle playerCircle" data-value="0.1" data-size="100" data-thickness="10" data-animation-start-value="0" data-reverse="false">
+        </div>
+
+        <div class="playersTexts">
+
+            <strong>ID :</strong> <em class="playerID"> 2</em>
+            <br>
+            <strong>Nom :</strong> <em class="playerName"> Player2</em>
+            <br>
+            <strong>Score :</strong> <em class="playerScore"> 0</em>
+            <br>
+            <strong>Touche assignée :</strong> <em data-toggle="modal" href="#fenetreModale" class="playerTouche">Unassigned </em>
+            <br>
+
+            <strong>Cris de guerre :</strong>
+            <select class="playerSound">
+                <option></option>
+                <option>Ane</option>
+                <option>Chat</option>
+            </select>
+
+
+        </div>
+
+
     </div>
 
 
-    <div id="player1" class="circle draggable playerCircle" data-value="0.1" data-size="100" data-thickness="10" data-animation-start-value="0" data-reverse="false">
-        <div id="texteLoading">Le joueur 1 !</div>
+
+    <audio src="sons/ane.mp3"></audio>
+    <audio src="sons/chat3.mp3"></audio>
+
+    <!-- POP UP -->
+    <div class="modal" id="fenetreModale">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <h4 class="modal-title">Configuration</h4>
+                </div>
+                <div class="modal-body">
+                    Appuyez sur une touche
+                </div>
+            </div>
+        </div>
     </div>
 
 
+
+    <button data-toggle="modal" href="#validationPoints" class="btn btn-primary">Informations</button>
     
+    <div class="modal" id="validationPoints">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <h4 class="modal-title">Tada !</h4>
+                </div>
+                <div class="modal-body">
+                    Validation de la réponse !
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" data-dismiss="modal">NUL ! -1pts</button>
+                    <button class="btn btn-info" data-dismiss="modal">Mouai... 0pts</button>
+                    <button class="btn btn-success" data-dismiss="modal">Bravo ! +1pts</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 
@@ -188,48 +191,144 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
     <script type="text/javascript" src="http://e-cdn-files.deezer.com/js/min/dz.js"></script>
-
     <script type="text/javascript" src="js/circle-progress.js"></script>
-    
-    
+
+
+    <!-- Mes JS persos séparés pour y voir plus clair -->
     <script type="text/javascript" src="js/boutons.js"></script>
     <script type="text/javascript" src="js/clavier.js"></script>
 
 
     <!-- Et là je fait ma bricole -->
+
     <script>
         /// Mes variables globales
 
-        var currentPlaylist = 579649831;
+        var currentPlaylist = 579649831; /// La playlist préchargée
 
+        var Joueurs = []; /// Le tableau qui contient les informations des joueurs
+
+        /// Initialisation des ID des joueurs
+        var playerId = 1;
+
+        /// Player en cours d'édition
+        var activePlayerId = 0;
+
+        /// Position dans le tableau Joueurs du player actif
+        var activeJoueur = 0;
+
+        /// Configuration des touches possible
+        var playerKeyConfig = false;
+
+
+        var sonAne = new Audio('sons/ane.mp3');
+        var sonChat = new Audio('sons/chat3.mp3');
+
+        var playSound =
+            function () {
+                var temporaire = $('#player' + activePlayerId + ' .playersTexts .playerSound option:selected').text();
+                if (temporaire == 'Ane') {
+                    sonAne.play();
+                };
+                if (temporaire == 'Chat') {
+                    sonChat.play();
+                };
+                console.log(temporaire);
+            }
+
+
+        /// Là je sais pas trop
         var pisteMusicale = {
-
             init: function (id) {
                 this.id = id; //ID Deezer
-
                 //  var currentTrack = DZ.player.getCurrentTrack();
                 DZ.player.playTracks[(id)];
-
                 var tempTrack = DZ.player.getCurrentTrack();
-
-
                 this.title = tempTrack.title;
-
                 this.artist = tempTrack.artist.name;
                 this.album = tempTrack.album.title;
                 this.duration = tempTrack.duration;
                 this.played = false; //false (default)  or true
-
                 // DZ.player.playTracks[(currentTrack.id)];
-
             }
         };
 
 
+
+        //// DEFINITION D'UN PLAYER
+        var Personnage = {
+            id: 0,
+            nom: "",
+            score: 0,
+            avatar: false,
+            avatarHref: "",
+            keyAssigned: "",
+            // Initialise le personnage
+            init: function (id, nom) {
+                this.id = id;
+                this.nom = nom;
+                this.score = 0;
+                this.avatar = false;
+                this.avatarHref = "";
+                this.keyAssigned = "";
+            },
+            // Renvoie la description du personnage
+            decrire: function () {
+                var description = this.nom + " a " + this.score + " points. Il a l'ID : " + this.id;
+                console.log(description);
+            }
+        };
+
+
+
+
+        ///Fonction pour initialiser les éléments JS d'un Player
+        function initPlayer() {
+            $(".draggable").draggable();
+            $('.playerCircle').circleProgress({
+                fill: {
+                    gradient: ["green", "blue"]
+                },
+                animation: {
+                    duration: 1200
+                },
+                lineCap: "round" /// les bouts arrondis :)
+            });
+        };
+
+
+        /// Fonction pour mettre en pause la musique
+        function pauseMusic() {
+            var playerPlaying = DZ.player.isPlaying();
+            if (playerPlaying == true) {
+                DZ.player.pause();
+                console.log('Paused');
+                return false;
+            }
+        };
+
+        function playMusic() {
+            var playerPlaying = DZ.player.isPlaying();
+            if (playerPlaying == false) {
+                DZ.player.play();
+                console.log('Cey partis pour le show!');
+                return false;
+            }
+        };
+
+
+
+
+
         /////  DEBUT DE LA BOUCLE PRINCIPALE JQuery  /////
         $(document).ready(function () {
+
+
+
+
+
+
 
             $("#controlers input").attr('disabled', true);
 
@@ -240,6 +339,8 @@
                 console.log(evt.offsetX, $(this).width(), evt.offsetX / $(this).width());
                 DZ.player.seek((evt.offsetX / $(this).width()) * 100);
             });
+
+
 
             //rendre draggable certains trucs
             $(".draggable").draggable();
@@ -270,16 +371,11 @@
 
 
 
-            var playlistGlobale = 0;
-
-            
-            
-            
 
         });
-        
-        
-        
+
+
+
 
         /////  FIN DE LA BOUCLE PRINCIPALE JQuery  /////
 
@@ -302,8 +398,8 @@
             });
 
 
-            
-            
+
+
             /// Mise à jours de l'avancement des barres de progression
             DZ.Event.subscribe('player_position', function (arg) {
                 //   event_listener_append('position', arg[0], arg[1]);
@@ -338,8 +434,6 @@
             }
         });
     </script>
-    <br/> event_listener :
-    <br/>
     <pre id="event_listener" style="height:100px;overflow:auto;"></pre>
 </body>
 
